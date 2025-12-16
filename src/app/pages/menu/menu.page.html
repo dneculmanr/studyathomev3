@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Menú Principal</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <h2 style="text-align:center">Hola, {{ usuario }} </h2>
+
+  <ion-button expand="block" color="success" (click)="irCalendario()">
+    Calendario
+  </ion-button>
+
+  <ion-button expand="block" color="medium" (click)="irResumen()">
+    Resumen
+  </ion-button>
+
+  <ion-button expand="block" color="tertiary" (click)="irAsignaturas()">
+    Asignaturas
+  </ion-button>
+
+  <ion-button expand="block" color="danger" class="ion-margin-top" (click)="cerrarSesion()">
+    Cerrar Sesión
+  </ion-button>
+
+  <ion-button expand="block" color="warning" (click)="irApuntes()">
+    Apuntes
+  </ion-button>
+
+  <div class="anim-menu">
+    <ng-lottie
+      [options]="animacionMenu"
+      style="width:140px; height:140px; margin-top:25px;">
+    </ng-lottie>
+  </div>
+
+</ion-content>

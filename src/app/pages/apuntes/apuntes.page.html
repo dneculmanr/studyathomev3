@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Apuntes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <h2 class="ion-text-center">Gestiona tus apuntes</h2>
+
+  <!-- Asignatura -->
+  <ion-item>
+    <ion-label>Asignatura</ion-label>
+    <ion-select
+      interface="popover"
+      placeholder="Selecciona una asignatura"
+      [(ngModel)]="asignaturaSeleccionadaId">
+      <ion-select-option
+        *ngFor="let a of asignaturas"
+        [value]="a.id">
+        {{ a.nombre }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Apunte de texto -->
+  <ion-item class="ion-margin-top">
+    <ion-label position="stacked">Título del apunte</ion-label>
+    <ion-input [(ngModel)]="tituloTexto" placeholder="Ej: Clase de fracciones"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Contenido</ion-label>
+    <ion-textarea
+      rows="4"
+      autoGrow="true"
+      [(ngModel)]="contenidoTexto"
+      placeholder="Escribe aquí el resumen del apunte..."></ion-textarea>
+  </ion-item>
+
+  <ion-button
+    expand="block"
+    color="success"
+    class="ion-margin-top"
+    (click)="guardarApunteTexto()">
+    Guardar apunte de texto
+  </ion-button>
+
+  <!-- Apunte con foto (cámara) -->
+  <ion-button
+    expand="block"
+    color="tertiary"
+    class="ion-margin-top"
+    (click)="tomarFotoApunte()">
+    Tomar foto de apunte
+  </ion-button>
+
+  <ion-text color="danger" *ngIf="errorCamara">
+    <p class="ion-text-center ion-margin-top">
+      {{ errorCamara }}
+    </p>
+  </ion-text>
+
+  <!-- Animación / decoración -->
+  <div class="anim-apuntes ion-text-center ion-margin-top">
+    <ng-lottie
+      [options]="animacionApuntes"
+      style="width:140px; height:140px; margin: 0 auto; display:block;">
+    </ng-lottie>
+  </div>
+
+
+  <!-- Lista de apuntes -->
+  <ion-list class="ion-margin-top">
+    <ion-list-header>
+      <ion-label>Apuntes guardados</ion-label>
+    </ion-list-header>
+
+    <ion-item *ngFor="let ap of apuntes">
+      <ion-label class="ion-text-wrap">
+        <h2>{{ ap.titulo }}</h2>
+        <p *ngIf="ap.asignaturaNombre">Asignatura: {{ ap.asignaturaNombre }}</p>
+        <p>Fecha: {{ ap.fecha | date:'short' }}</p>
+
+        <!-- Apunte de texto -->
+        <p *ngIf="ap.tipo === 'texto' && ap.contenidoTexto">
+          {{ ap.contenidoTexto }}
+        </p>
+
+        <!-- Apunte de foto -->
+        <div *ngIf="ap.tipo === 'foto' && ap.fotoDataUrl" style="margin-top: 8px;">
+          <img [src]="ap.fotoDataUrl"
+               alt="Apunte"
+               style="max-width: 100%; border-radius: 8px;" />
+        </div>
+      </ion-label>
+
+      <ion-button
+        fill="clear"
+        color="danger"
+        slot="end"
+        (click)="eliminarApunte(ap)">
+        Eliminar
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-button
+    expand="block"
+    color="medium"
+    class="ion-margin-top"
+    (click)="volverMenu()">
+    Volver al menú
+  </ion-button>
+
+</ion-content>

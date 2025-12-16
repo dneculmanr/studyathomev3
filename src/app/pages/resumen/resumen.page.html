@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Resumen</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="anim-container">
+    <ng-lottie [options]="animacion"></ng-lottie>
+  </div>
+
+  <h2>Bienvenido/a, <strong>{{ usuario }}</strong></h2>
+  <p><strong>Contraseña:</strong> {{ password }}</p>
+
+  <h3 class="ion-margin-top">Asignaturas</h3>
+  <ion-list *ngIf="asignaturas.length > 0; else noas">
+    <ion-item *ngFor="let s of asignaturas">
+      <ion-label>{{ s }}</ion-label>
+    </ion-item>
+  </ion-list>
+  <ng-template #noas>
+    <p>No hay asignaturas aún.</p>
+  </ng-template>
+
+  <h3 class="ion-margin-top">Últimos recordatorios</h3>
+  <ion-list *ngIf="recordatorios.length > 0; else norec">
+    <ion-item *ngFor="let r of recordatorios">
+      <ion-label>
+        <h3>{{ r.fecha }}</h3>
+        <p><strong>{{ r.materia }}</strong> — {{ r.descripcion }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ng-template #norec>
+    <p>No hay recordatorios.</p>
+  </ng-template>
+
+  <ion-button expand="block" color="medium" class="ion-margin-top" (click)="volverMenu()">
+   Volver al Menú
+  </ion-button>
+
+
+</ion-content>
