@@ -1,0 +1,7 @@
+{
+  "name": "studyathome",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
